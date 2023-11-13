@@ -1,7 +1,9 @@
 # Creates a task definition using the files/task-definition.json
+# HINT: if you would like to use your own docker image, update the container_definitions image_url
+# accordingly
 
 resource "aws_ecs_task_definition" "own_task_definition" {
-  family                = "luqmantesttaskdef"
+  family                = "luqmantesttaskdef" # Update accordingly
   requires_compatibilities = ["FARGATE"]
   network_mode             = "awsvpc"
   execution_role_arn        = var.ex_role_arn
@@ -20,13 +22,13 @@ resource "aws_ecs_task_definition" "own_task_definition" {
 # Creates an ecs cluster
 
 resource "aws_ecs_cluster" "own_cluster" {
-  name = "luqman-ecs-test-cluster"
+  name = "luqman-ecs-test-cluster" # Update accordingly
 }
 
 # Creates an ecs service
 
 resource "aws_ecs_service" "own_service" {
-  name             = "my-ecs-service"
+  name             = "my-ecs-service" # Update accordingly
   cluster          = aws_ecs_cluster.own_cluster.arn
   task_definition  = aws_ecs_task_definition.own_task_definition.arn
   desired_count    = 1
