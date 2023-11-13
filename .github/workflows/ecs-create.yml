@@ -37,8 +37,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Pause 5min to verify ecs creation
-        run: sleep 300
+      - name: Pause 10min to verify ecs creation
+        run: sleep 600
 
   terraform-destroy:
     needs: terraform-wait
