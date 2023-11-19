@@ -7,8 +7,8 @@ resource "aws_ecs_task_definition" "own_task_definition" {
   requires_compatibilities = ["FARGATE"]
   network_mode             = "awsvpc"
   execution_role_arn        = var.ex_role_arn
-  cpu                   =   256
-  memory                = 512
+  cpu                   =   2048
+  memory                = 4096
 
   container_definitions = templatefile("./files/task-definition.json", {
     image_url        = "255945442255.dkr.ecr.us-east-1.amazonaws.com/luqman-test-ecr-repo:latest"
