@@ -3,16 +3,28 @@
 # accordingly
 
 resource "aws_ecs_task_definition" "own_task_definition" {
-  family                = "luqmantesttaskdef" # Update accordingly
+  family                = "luqmanecstaskdef" # Update accordingly
   requires_compatibilities = ["FARGATE"]
   network_mode             = "awsvpc"
   execution_role_arn        = var.ex_role_arn
   cpu                   =   2048
   memory                = 4096
 
+  # For custom ECR image
+  # container_definitions = templatefile("./files/task-definition.json", {
+  #   image_url        = "255945442255.dkr.ecr.us-east-1.amazonaws.com/luqman-test-ecr-repo:latest"
+  #   container_name   = "luqman-test-ecs"
+  #   port_name        = "luqman-test-ecs-8080-tcp"
+  #   log_group_region = "us-east-1"
+  #   log_group_name   = "/ecs/luqmantesttaskdef"
+  #   log_group_prefix = "ecs"
+  # })
+
+  # For nginx image
   container_definitions = templatefile("./files/task-definition.json", {
-    image_url        = "255945442255.dkr.ecr.us-east-1.amazonaws.com/luqman-test-ecr-repo:latest"
-    container_name   = "luqman-test-ecs"
+    image_url        = "nginx:latest"
+    port_name        = "nginx80-tcp"
+    container_name   = "NGINX"
     port_name        = "luqman-test-ecs-8080-tcp"
     log_group_region = "us-east-1"
     log_group_name   = "/ecs/luqmantesttaskdef"
@@ -29,7 +41,7 @@ resource "aws_ecs_cluster" "own_cluster" {
 # Creates an ecs service
 
 resource "aws_ecs_service" "own_service" {
-  name             = "my-ecs-service" # Update accordingly
+  name             = "luqman-ecs-service" # Update accordingly
   cluster          = aws_ecs_cluster.own_cluster.arn
   task_definition  = aws_ecs_task_definition.own_task_definition.arn
   desired_count    = 1
