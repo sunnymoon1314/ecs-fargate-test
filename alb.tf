@@ -3,7 +3,7 @@ resource "aws_lb" "ecs-alb" {
   internal           = false
   load_balancer_type = "application"
   security_groups    = [var.sg_id]
-  subnets            = [for subnet in aws_subnet.existing_subnets : subnet.id]
+  subnets            = [for subnet in data.aws_subnet.existing_subnets : subnet.id]
 
   enable_deletion_protection = true
 
@@ -17,7 +17,7 @@ resource "aws_lb_target_group" "ecs-alb-tg" {
   target_type = "alb"
   port        = 80
   protocol    = "TCP"
-  vpc_id      = aws_vpc.existing_vpc.id
+  vpc_id      = data.aws_vpc.existing_vpc.id
   health_check {
     path      = "/"
     protocol  = "HTTP"

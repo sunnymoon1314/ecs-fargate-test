@@ -32,7 +32,7 @@ resource "aws_ecs_task_definition" "own_task_definition" {
   })
 }
 
-# Creates an ecs cluster
+# Creates an ecs clustersctp-ce5-tfstate-bucket-1
 
 resource "aws_ecs_cluster" "own_cluster" {
   name = "luqman-ecs-test-cluster" # Update accordingly
