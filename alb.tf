@@ -3,7 +3,7 @@ resource "aws_lb" "ecs-alb" {
   internal           = false
   load_balancer_type = "application"
   security_groups    = [var.sg_id]
-  subnets            = [for subnet in data.aws_subnet.existing_subnets : subnet.id]
+  subnets            = [data.aws_subnets.existing_subnets.id]
 
   enable_deletion_protection = true
 
