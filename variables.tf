@@ -1,3 +1,4 @@
+# Updated on Saturday 30 Mar 2024 1120AM.
 variable "vpc_id" {
   description = "The ID of the VPC"
   type        = string
