@@ -4,8 +4,11 @@ resource "aws_lb" "ecs-alb" {
   load_balancer_type = "application"
   security_groups    = [var.sg_id]
   subnets            = toset(data.aws_subnets.existing_subnets.ids)
-
-  enable_deletion_protection = true
+  # Luqman put the statement here and set to true. This caused an error because terraform will not
+  # be able to destroy the application load balancer since it is deletion protected.
+  # To resolve this, I set the value to false. Note that if you do not include this line, the default
+  # value of enable_deletion_protection is false. 
+  enable_deletion_protection = false
 
   tags = {
     Environment = "production"
